@@ -1,0 +1,124 @@
+<!-- HI THERE -->
+<h1 class="header">Galvanize classifieds</h1>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+
+        <!-- for creating a NEW ad -->
+          <form name="$ctrl.newAd" ng-submit="$ctrl.createAd()">
+
+            <div class="form-group">
+              <label class="control-label" for="title">Title:</label>
+              <input
+              type="text"
+              name="title"
+              class="form-control"
+              ng-model="$ctrl.newAd.title" >
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="description">Description:</label>
+              <input
+              type="text"
+              name="description"
+              class="form-control"
+              ng-model="$ctrl.newAd.description"
+              ng-required="true"
+              id="description">
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="price">Price:</label>
+              <input
+              type="text"
+              name="price"
+              class="form-control"
+              ng-model="$ctrl.newAd.price"
+              ng-required="true"
+              id="price">
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="item_image">Image URL:</label>
+              <input
+              type="url"
+              name="item_image"
+              class="form-control"
+              ng-model="$ctrl.newAd.item_image"
+              ng-required="true"
+              id="item_image">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create Ad</button>
+            </div>
+          </form>
+        <!-- Button of ''<form>' element for creating a New Ad -->
+      </div>
+    </div>
+<!-- end of CREATE NEW Ad 'form' -->
+</div>
+
+
+<!-- Current listings of Ads -->
+<div class="container" ng-repeat="ad in $ctrl.ads">
+    <h2>{{ad.title}}</h2>
+    <p>Description: {{ad.description}} </p>
+    <p>{{ad.price}}</p>
+    <img ng-src="{{ad.item_image}}" alt="item_image">
+
+    <!-- DELETE and MODIFY(EDIT) buttons -->
+    <button ng-click="$ctrl.deleteAd($event)" id="{{ad.id}}" type="submit" class="btn btn-primary">
+      Delete
+    </button>
+
+    <button ng-click="showEditForm = !showEditForm"  id="{{ad.id}}" type="submit" class="btn btn-primary">
+      Edit
+    </button>
+
+    <!-- form to EDIT Ad -->
+    <form name="$ctrl.editForm"
+          id="{{ad.id}}"
+          class="form"
+          ng-show="showEditForm"
+          ng-submit="$ctrl.editAd(ad)">
+
+      <!-- ad TITLE -->
+      <div class="form-group">
+        <label class="control-label" for="title">
+          Title
+        </label>
+        <input ng-model="ad.title" type="title" class="form-control" id="title">
+      </div>
+      <!-- ad PRICE -->
+      <div class="form-group">
+        <label class="control-label" for="price">
+          Price
+        </label>
+        <input ng-model="ad.price" type="price" class="form-control" id="adPrice" placeholder="enter price">
+      </div>
+      <!-- ad DESCRIPTION -->
+      <div class="form-group">
+        <label class="control-label" for="description">
+          Description
+        </label>
+        <input ng-model="ad.description" class="form-control" id="adDescription" placeholder="enter description">
+      </div>
+      <!-- image -->
+      <div>
+        <label class="control-label" for="img">Image</label>
+        <input ng-model="ad.item_image" name="item_image" placeholder="Add a photo of the item" type="url" class="form-control" id="image">
+      </div>
+
+      <br>
+      <!-- submit form for edited-ad -->
+      <button ng-click="showEditForm = false" type="submit" class="btn btn-primary">
+        Submit
+      </button>
+
+    </form>
+
+
+
+
+</div>
+<!-- END of 'ng-repeat' of 'ad' in controller 'ads' objects  -->
